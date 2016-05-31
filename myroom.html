@@ -23,7 +23,6 @@
   <body>
 	<script>
 	$(document).ready(function(){
-	
 	var userId = localStorage.getItem("userId");
 	userId = "f1ccb982723683c8f9e424f12800437c";
 		$.ajax({
@@ -31,10 +30,12 @@
 			type:'GET',
 			success:function(user){
 				var myUser = user;
+				var mySex = convSex(myUser.sex);
+				var myBirthday = convDate(myUser.birthday);
 				$("#userName").text(myUser.name);
-				$("#sex").text(myUser.sex);
+				$("#sex").text(mySex);
 				$("#mail").text(myUser.mail);
-				$("#birthday").text(myUser.birthday);
+				$("#birthday").text(myBirthday);
 				$("#dspName").text(myUser.name);
 			}
 		});
@@ -47,16 +48,16 @@
 				for (var i = 0; i < myActivity.length; i++) {
 					rows += "<tr>";
 					rows += "<td>";
-					rows += myActivity[i].date;
+					rows += convDate(myActivity[i].date);
 					rows += "</td>";
 					rows += "<td>";
-					rows += myActivity[i].weight
+					rows += myActivity[i].weight + "kg"
 					rows += "</td>";
 					rows += "<td>";
-					rows += myActivity[i].fat;
+					rows += myActivity[i].fat + "%";
 					rows += "</td>";
 					rows += "<td>";
-					rows += myActivity[i].step;
+					rows += myActivity[i].step + "歩";
 					rows += "</td>";
 					rows += "</tr>";
 				}
@@ -64,6 +65,24 @@
 			}
 		});
 	});
+	function convSex(sex){
+		var mySex ="";
+		if(sex=="1"){
+			 mySex="男";
+		}else if(sex=="2"){
+			mySex="女";
+		}else{
+			mySex="その他";
+		};
+		return mySex;
+	};
+	function convDate(dateStr){
+		var myDate =dateStr;
+		if(dateStr.length==8){
+			 myDate = dateStr.substr(0,4) + "/" + dateStr.substr(4,2) +"/"+ dateStr.substr(6,2);
+		}
+		return myDate;
+	};
 	</script>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
