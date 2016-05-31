@@ -13,12 +13,21 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <!-- BootstrapのJS読み込み -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+	
+	<STYLE type="text/css">
+	BODY{color : white ;background-color : #272B30}
+	table{color : black;}
+	span.dsp1{color : black}
+	</STYLE>
   </head>
   <body>
 	<script>
 	$(document).ready(function(){
+	
+	var userId = localStorage.getItem("userId");
+	
 		$.ajax({
-			url:'http://nos1689test.mybluemix.net/user?userid=test',
+			url:'http://nos1689test.mybluemix.net/user?userId=' + userId,
 			type:'GET',
 			success:function(user){
 				var myUser = user;
@@ -26,10 +35,11 @@
 				$("#sex").text(myUser.sex);
 				$("#mail").text(myUser.mail);
 				$("#birthday").text(myUser.birthday);
+				$("#dspName").text(myUser.name);
 			}
 		});
 		$.ajax({
-			url:'http://nos1689test.mybluemix.net/activity?userid=test',
+			url:'http://nos1689test.mybluemix.net/activity?userId=' + userId,
 			type:'GET',
 			success:function(activity){
 				var myActivity = activity
@@ -68,32 +78,39 @@
 				<ul class="nav navbar-nav">
 					<li><a href="#">アクティビティ入力</a></li>
 					<li><a href="#">基本情報修正</a></li>
-					<li><a href="#">ログアウト</a></li>
 				</ul>
-				<p class="navbar-text navbar-right">ようこそ <a href="#" class="navbar-link">IBM太郎</a> さん。</p>
+				<p class="navbar-text navbar-right">ようこそ <a href="#" class="navbar-link"><span id ="dspName"></span></a> さん。</p>
 			</div>
 		</div>
 	</nav>
 	<div class="container-fluid">
 		<div class="row-fluid">
-			<div class="col-xs-12 col-md-6 panel panel-primary">
-				<h3>基本情報</h3>
-				<div class="col-xs-12 col-md-6 panel panel-info">名前：<span id="userName"></span></div>
-				<div class="col-xs-12 col-md-6 panel panel-info" >性別：<span id="sex"></span></div>
-				<div class="col-xs-12 col-md-6 panel panel-info" >メール：<span id="mail"></span></div>
-				<div class="col-xs-12 col-md-6 panel panel-info" >生年月日：<span id="birthday"></span></div>
+			<div class="col-xs-12 col-md-6 panel-primary">
+				<div class="panel-heading">
+					<div class="panel-title">基本情報</div>
+				</div>
+				<div class="panel-body panel">
+					<div class="col-xs-12 col-md-6 "><span class="label label-primary">名前：</span><span class="dsp1" id="userName"></span></div>
+					<div class="col-xs-12 col-md-6 "><span class="label label-primary">性別：</span><span class="dsp1" id="sex"></span></div>
+					<div class="col-xs-12 col-md-6 "><span class="label label-primary">メール：</span><span class="dsp1" id="mail"></span></div>
+					<div class="col-xs-12 col-md-6 "><span class="label label-primary">生年月日：</span><span class="dsp1" id="birthday"></span></div>
+				</div>
 			</div> 
-			<div class="col-xs-12 col-md-6 panel panel-primary" >
-				<h3>アクティビティ</h3>
-				<table id="activity">
-					<thead><tr>
-						<td>日付</td>
-						<td>体重</td>
-						<td>体脂肪率</td>
-						<td>歩数</td>
-					</tr></thead>
-					<tbody></tbody>
-				</table>
+			<div class="col-xs-12 col-md-6 panel-primary" >
+				<div class="panel-heading">
+					<div class="panel-title">アクティビティ</div>
+				</div>
+				<div class="panel-body panel">
+					<table id="activity" class="table table-striped table-bordered">
+						<thead><tr>
+							<td>日付</td>
+							<td>体重</td>
+							<td>体脂肪率</td>
+							<td>歩数</td>
+						</tr></thead>
+						<tbody></tbody>
+					</table>
+				</div>
 			</div> 
 		</div>
 	</div>
