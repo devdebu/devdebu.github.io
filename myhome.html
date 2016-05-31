@@ -25,9 +25,9 @@
 	$(document).ready(function(){
 	
 	var userId = localStorage.getItem("userId");
-	
+	userId = "f1ccb982723683c8f9e424f12800437c";
 		$.ajax({
-			url:'http://nos1689test.mybluemix.net/user?userId=' + userId,
+			url:'http:/deboo.mybluemix.net/user?userId=' + userId,
 			type:'GET',
 			success:function(user){
 				var myUser = user;
@@ -39,18 +39,21 @@
 			}
 		});
 		$.ajax({
-			url:'http://nos1689test.mybluemix.net/activity?userId=' + userId,
+			url:'http:/deboo.mybluemix.net/activity?userId=' + userId,
 			type:'GET',
 			success:function(activity){
 				var myActivity = activity
 				var rows = "";
-				for (i = 0; i < myActivity.length; i++) {
+				for (var i = 0; i < myActivity.length; i++) {
 					rows += "<tr>";
 					rows += "<td>";
 					rows += myActivity[i].date;
 					rows += "</td>";
 					rows += "<td>";
 					rows += myActivity[i].weight
+					rows += "</td>";
+					rows += "<td>";
+					rows += myActivity[i].fat;
 					rows += "</td>";
 					rows += "<td>";
 					rows += myActivity[i].step;
@@ -101,7 +104,7 @@
 					<div class="panel-title">アクティビティ</div>
 				</div>
 				<div class="panel-body panel">
-					<table id="activity" class="table table-striped table-bordered">
+					<table id="activityTable" class="table table-striped table-bordered">
 						<thead><tr>
 							<td>日付</td>
 							<td>体重</td>
