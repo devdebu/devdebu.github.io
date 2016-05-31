@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DevDebu myhome</title>
+    <!-- BootstrapのCSS読み込み -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <!-- underescore読み込み -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+	<script>
+	$(document).ready(function(){
+		$.ajax({
+			url:'http://nos1689test.mybluemix.net/user?userid=test',
+			type:'GET',
+			success:function(user){
+				var myUser = user;
+				$("#userName").text(myUser.name);
+				$("#sex").text(myUser.sex);
+				$("#mail").text(myUser.mail);
+				$("#birthday").text(myUser.birthday);
+			}
+		});
+		$.ajax({
+			url:'http://nos1689test.mybluemix.net/activity?userid=test',
+			type:'GET',
+			success:function(activity){
+				var myActivity = activity
+				var rows = "";
+				for (i = 0; i < myActivity.length; i++) {
+					rows += "<tr>";
+					rows += "<td>";
+					rows += myActivity[i].date;
+					rows += "</td>";
+					rows += "<td>";
+					rows += myActivity[i].weight
+					rows += "</td>";
+					rows += "<td>";
+					rows += myActivity[i].step;
+					rows += "</td>";
+					rows += "</tr>";
+				}
+				$("#activityTable tbody").html(rows);
+			}
+		});
+	});
+	</script>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample7">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">DevDebu</a>
+			</div>
+		
+			<div class="collapse navbar-collapse" id="navbarEexample7">
+				<ul class="nav navbar-nav">
+					<li><a href="#">アクティビティ入力</a></li>
+					<li><a href="#">基本情報修正</a></li>
+					<li><a href="#">ログアウト</a></li>
+				</ul>
+				<p class="navbar-text navbar-right">ようこそ <a href="#" class="navbar-link">IBM太郎</a> さん。</p>
+			</div>
+		</div>
+	</nav>
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="col-xs-12 col-md-6 panel panel-primary">
+				<h3>基本情報</h3>
+				<div class="col-xs-12 col-md-6 panel panel-info">名前：<span id="userName"></span></div>
+				<div class="col-xs-12 col-md-6 panel panel-info" >性別：<span id="sex"></span></div>
+				<div class="col-xs-12 col-md-6 panel panel-info" >メール：<span id="mail"></span></div>
+				<div class="col-xs-12 col-md-6 panel panel-info" >生年月日：<span id="birthday"></span></div>
+			</div> 
+			<div class="col-xs-12 col-md-6 panel panel-primary" >
+				<h3>アクティビティ</h3>
+				<table id="activity">
+					<thead><tr>
+						<td>日付</td>
+						<td>体重</td>
+						<td>体脂肪率</td>
+						<td>歩数</td>
+					</tr></thead>
+					<tbody></tbody>
+				</table>
+			</div> 
+		</div>
+	</div>
+  </body>
+</html>
