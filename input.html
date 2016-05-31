@@ -50,7 +50,8 @@
 				// 送信先URL
 				url: 'https://deboo.mybluemix.net/v1/activity',
 				type: 'POST',
-				data: $form.serialize(), 
+				//data: $form.serialize(),
+				data:{_id:"f1ccb982723683c8f9e424f12800437c",userId: "f1ccb982723683c8f9e424f12800437c",date:"",fat:0,step:0,weight:0},
 				timeout: 10000,  // 単位はミリ秒
 				success: function(result, textStatus, xhr) {
 					// 入力値を初期化
@@ -74,7 +75,7 @@
 			<div class="form-group">
 				<label for="bodyweight" class="col-sm-4 control-label">_id</label></label>
 				<div class="col-sm-offset-4 col-sm-6">
-					<input type="text" class="form-control" id="sysid" name="sysid" readonly="readonly">
+					<input type="text" class="form-control" id="_id" name="_id" readonly="readonly">
 				</div>
 			</div>
 			<div class="form-group">
@@ -86,25 +87,25 @@
 			<div class="form-group">
 				<label for="actvDate" class="col-sm-4 control-label">日付</label>
 				<div class="col-sm-6">
-					<input type="text" class="form-control" id="actvdate" name="actvdate">
+					<input type="text" class="form-control" id="date" name="date">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="bodyweight" class="col-sm-4 control-label">体重</label>
 				<div class="col-sm-6">
-					<input type="number" class="form-control" id="bodyweight" placeholder="Amount" name="bodyweight">
+					<input type="number" class="form-control" id="weight" placeholder="Amount" name="weight">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="fatrate" class="col-sm-4 control-label">体脂肪率</label>
 				<div class="col-sm-6">
-					<input type="number" class="form-control" id="fatrate" placeholder="Amount" name="fatrate">
+					<input type="number" class="form-control" id="fat" placeholder="Amount" name="fat">
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="steps" class="col-sm-4 control-label">歩数</label>
 				<div class="col-sm-6">
-					<input type="number" class="form-control" id="steps" placeholder="Amount" name="steps2">
+					<input type="number" class="form-control" id="step" placeholder="Amount" name="step">
 				</div>
 			</div>
 			<div class="form-group">
