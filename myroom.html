@@ -27,7 +27,7 @@
 	var userId = localStorage.getItem("userId");
 	userId = "f1ccb982723683c8f9e424f12800437c";
 		$.ajax({
-			url:'http:/deboo.mybluemix.net/user?userId=' + userId,
+			url:'http://deboo.mybluemix.net/user?userId=' + userId,
 			type:'GET',
 			success:function(user){
 				var myUser = user;
@@ -39,7 +39,7 @@
 			}
 		});
 		$.ajax({
-			url:'http:/deboo.mybluemix.net/activity?userId=' + userId,
+			url:'http://deboo.mybluemix.net/activity?userId=' + userId,
 			type:'GET',
 			success:function(activity){
 				var myActivity = activity
