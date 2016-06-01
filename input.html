@@ -21,10 +21,19 @@
 		
 		// 現在日付を設定
 		var $aform = $('#actvform');
-		$aform.find("[name=actvdate]").val(yyyymmdd);
+		$aform.find("[name=date]").val(yyyymmdd);
 		
-		// 編集不可に設定
-		$aform.find("[name=actvdate]").attr("readonly",true);
+		// 編集不可の設定
+		$aform.find("[name=date]").attr("readonly",true);
+		
+		// ページ読み込み時にユーザーＩＤ取得
+		var userId = "f1ccb982723683c8f9e424f12800437c";
+		$aform.find("[name=userId]").val(userId);
+		
+		// サンプル値をランダムでセット
+		$aform.find("[name=weight]").val(jnow%10+50);
+		$aform.find("[name=fat]").val(jnow%5+19);
+		$aform.find("[name=step]").val(jnow%30000);
 
 	});
 	
@@ -36,8 +45,7 @@
 		
 			alert("入力内容を登録します");
 			
-			var userId = localStorage.getItem("userId");
-			userId = "f1ccb982723683c8f9e424f12800437c";
+			var userId = "";//localStorage.getItem("userId");
 
 			// 操作対象のフォーム要素を取得
 			var $form = $("#actvform");
@@ -48,10 +56,10 @@
 			// 送信
 			$.ajax({
 				// 送信先URL
-				url:'http://deboo.mybluemix.net/v1/activity?userId=' + userId,
+				url:'https://deboo.mybluemix.net/v1/activity',
 				type: 'POST',
-				//data: $form.serialize(),
-				data:{_id:"f1ccb982723683c8f9e424f12800437c",userId: "f1ccb982723683c8f9e424f12800437c",date:"",fat:0,step:0,weight:0},
+				data: $form.serialize(),
+				//data:{_id:"f1ccb982723683c8f9e424f12800437c",userId: "f1ccb982723683c8f9e424f12800437c",date:"",fat:0,step:0,weight:0},
 				timeout: 10000,  // 単位はミリ秒
 				success: function(result, textStatus, xhr) {
 					// 入力値を初期化
@@ -64,9 +72,6 @@
 			});
 			
 		});
-		//$('#inputactv').on('click', function() {
-		//	alert("クリックされました");
-		//});
 	});
 	
 	
@@ -76,15 +81,9 @@
 	<body>
 		<form class="form-horizontal" method="POST" id="actvform" name="actvform">
 			<div class="form-group">
-				<label for="bodyweight" class="col-sm-4 control-label">_id</label></label>
-				<div class="col-sm-offset-4 col-sm-6">
-					<input type="text" class="form-control" id="_id" name="_id" readonly="readonly">
-				</div>
-			</div>
-			<div class="form-group">
 				<label for="bodyweight" class="col-sm-4 control-label">ユーザーＩＤ</label></label>
 				<div class="col-sm-offset-4 col-sm-6">
-					<input type="text" class="form-control" id="userid" name="userid" readonly="readonly">
+					<input type="text" class="form-control" id="userId" name="userId" readonly="readonly">
 				</div>
 			</div>
 			<div class="form-group">
