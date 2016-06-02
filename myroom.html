@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DevDebu myhome</title>
+    <title>DevDebu myRoom</title>
     <!-- BootstrapのCSS読み込み -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery読み込み -->
@@ -12,12 +12,14 @@
     <!-- underescore読み込み -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <!-- BootstrapのJS読み込み -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-	
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
 	<STYLE type="text/css">
 	BODY{color : white ;background-color : #272B30}
 	table{color : black;}
-	span.dsp1{color : black}
+	.debu-label{display: inline-block;width : 6em;text-align:right;}
+	.debu-txt{display: inline-block;width : 20em; margin-left:0.5em ;color : black;}
+	.debuBox{width:12em; background-color:lightskyblue; border:2px white double; margin-top:1em; margin-right:1em; margin-bottom:1em; margin-left:auto}
+	.debuVal{width:8em; display: inline-block;text-align: right;margin-left:0.5em;}
 	</STYLE>
   </head>
   <body>
@@ -25,8 +27,18 @@
 	$(document).ready(function(){
 	var userId = localStorage.getItem("userId");
 	userId = "f1ccb982723683c8f9e424f12800437c";
+	//Debu取得
 		$.ajax({
-			url:'http://deboo.mybluemix.net/v1/user?userId=' + userId,
+			url:'https://deboo.mybluemix.net/v1/debu?userId=' + userId,
+			type:'GET',
+			success:function(debu){
+				var myDebu =convNum(debu);
+				$("#myDebu").text(myDebu);
+			}
+		});
+	//基本情報取得
+		$.ajax({
+			url:'https://deboo.mybluemix.net/v1/user?userId=' + userId,
 			type:'GET',
 			success:function(user){
 				var myUser = user;
@@ -39,8 +51,9 @@
 				$("#dspName").text(myUser.name);
 			}
 		});
+	//アクティビティ取得
 		$.ajax({
-			url:'http://deboo.mybluemix.net/v1/activity?userId=' + userId,
+			url:'https://deboo.mybluemix.net/v1/activity?userId=' + userId,
 			type:'GET',
 			success:function(activity){
 				var myActivity = activity
@@ -65,6 +78,7 @@
 			}
 		});
 	});
+	//性別表示変換
 	function convSex(sex){
 		var mySex ="";
 		if(sex=="1"){
@@ -76,6 +90,7 @@
 		};
 		return mySex;
 	};
+	//日付表示変換
 	function convDate(dateStr){
 		var myDate =dateStr;
 		if(dateStr.length==8){
@@ -83,6 +98,10 @@
 		}
 		return myDate;
 	};
+	//数値表示変換
+	function convNum(num){
+		return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
+	}
 	</script>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -105,6 +124,7 @@
 			</div>
 		</div>
 	</nav>
+	<div class ="debuBox"><span>Debu</span><span class="debuVal" id="myDebu"></span></div>
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="col-xs-12 col-md-6 panel-primary">
@@ -112,10 +132,10 @@
 					<div class="panel-title">基本情報</div>
 				</div>
 				<div class="panel-body panel">
-					<div class="col-xs-12 col-md-6 "><span class="label label-primary">名前：</span><span class="dsp1" id="userName"></span></div>
-					<div class="col-xs-12 col-md-6 "><span class="label label-primary">性別：</span><span class="dsp1" id="sex"></span></div>
-					<div class="col-xs-12 col-md-6 "><span class="label label-primary">メール：</span><span class="dsp1" id="mail"></span></div>
-					<div class="col-xs-12 col-md-6 "><span class="label label-primary">生年月日：</span><span class="dsp1" id="birthday"></span></div>
+					<div class="col-xs-12 col-md-6 "><span class="label label-primary debu-label">名前：</span><span class="debu-txt" id="userName"></span></div>
+					<div class="col-xs-12 col-md-6 "><span class="label label-primary debu-label">性別：</span><span class="debu-txt" id="sex"></span></div>
+					<div class="col-xs-12 col-md-6 "><span class="label label-primary debu-label">メール：</span><span class="debu-txt" id="mail"></span></div>
+					<div class="col-xs-12 col-md-6 "><span class="label label-primary debu-label">生年月日：</span><span class="debu-txt" id="birthday"></span></div>
 				</div>
 			</div> 
 			<div class="col-xs-12 col-md-6 panel-primary" >
