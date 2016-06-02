@@ -32,7 +32,7 @@
 			url:'https://deboo.mybluemix.net/v1/debu?userId=' + userId,
 			type:'GET',
 			success:function(debu){
-				var myDebu =convNum(debu);
+				var myDebu =convNum(debu.debu);
 				$("#myDebu").text(myDebu);
 			}
 		});
