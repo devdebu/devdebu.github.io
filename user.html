@@ -50,10 +50,10 @@
 	//UPDATE button
 		$(".btn_ajax").on("click", function(e) {
 		var button = $(this);
-		var form =$("#"+$(button).attr("action"));
+		var form =$("#update");
 		$.ajax({
 			url: 'https://deboo.mybluemix.net/v1/user',
-			type: 'PUT'
+			type: 'PUT',
 			data: form.serialize(),
 			timeout: 10000,
 				success:ajaxSuccess
