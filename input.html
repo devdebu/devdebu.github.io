@@ -27,7 +27,7 @@
 		$aform.find("[name=date]").attr("readonly",true);
 		
 		// ページ読み込み時にユーザーＩＤ取得
-		var userId = "devdebu2";
+		var userId = localStorage.getItem("userId");
 		$aform.find("[name=userId]").val(userId);
 		
 		// サンプル値をランダムでセット
@@ -77,6 +77,15 @@
 	
 	</script>
 	
+	<!-- css from myroom -->
+	<STYLE type="text/css">
+		BODY{color : white ;background-color : #272B30}
+		table{color : black;}
+		.debu-label{display: inline-block;width : 6em;text-align:right;}
+		.debu-txt{display: inline-block;width : 20em; margin-left:0.5em ;color : black;}
+		.debuBox{width:12em; background-color:lightskyblue; border:2px white double; margin-top:1em; margin-right:1em; margin-bottom:1em; margin-left:auto}
+		.debuVal{width:8em; display: inline-block;text-align: right;margin-left:0.5em;}
+	</STYLE>	
 	</head>
 	<body>
 		<form class="form-horizontal" method="POST" id="actvform" name="actvform">
