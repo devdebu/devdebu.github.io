@@ -10,84 +10,105 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 	
-	<script>
-	$(document).ready(function(){
-		// 現在日付を取得
-		var jnow = jQuery.now();
-		var nowdate = new Date(jnow);
-		var yyyymmdd = 		nowdate.getFullYear() 
-						+ 	"/" + ("0" + (nowdate.getMonth()+1)).slice(-2) 
-						+	"/" + ("0" + nowdate.getDate()).slice(-2);
-		
-		// 現在日付を設定
-		var $aform = $('#actvform');
-		$aform.find("[name=date]").val(yyyymmdd);
-		
-		// 編集不可の設定
-		$aform.find("[name=date]").attr("readonly",true);
-		
-		// ページ読み込み時にユーザーＩＤ取得
-		var userId = localStorage.getItem("userId");
-		$aform.find("[name=userId]").val(userId);
-		
-		// サンプル値をランダムでセット
-		$aform.find("[name=weight]").val(jnow%10+50);
-		$aform.find("[name=fat]").val(jnow%5+19);
-		$aform.find("[name=step]").val(jnow%30000);
-
-	});
+		<script>
+		$(document).ready(function(){
+			// 現在日付を取得
+			var jnow = jQuery.now();
+			var nowdate = new Date(jnow);
+			var yyyymmdd = 		nowdate.getFullYear() 
+							+ 	"/" + ("0" + (nowdate.getMonth()+1)).slice(-2) 
+							+	"/" + ("0" + nowdate.getDate()).slice(-2);
+			
+			// 現在日付を設定
+			var $aform = $('#actvform');
+			$aform.find("[name=date]").val(yyyymmdd);
+			
+			// 編集不可の設定
+			$aform.find("[name=date]").attr("readonly",true);
+			
+			// ページ読み込み時にユーザーＩＤ取得
+			var userId = localStorage.getItem("userId");
+			$aform.find("[name=userId]").val(userId);
+			
+			// サンプル値をランダムでセット
+			$aform.find("[name=weight]").val(jnow%10+50);
+			$aform.find("[name=fat]").val(jnow%5+19);
+			$aform.find("[name=step]").val(jnow%30000);
 	
-	jQuery(function($){
-		$("#inputactv").on('click',function(){
-		
-			// HTMLでの送信をキャンセル
-			//event.preventDefault();
-		
-			alert("入力内容を登録します");
-			
-			var userId = "";//localStorage.getItem("userId");
-
-			// 操作対象のフォーム要素を取得
-			var $form = $("#actvform");
-			
-			// 送信ボタンを取得
-			var $res = $form.find("[name=results]");
-			
-			// 送信
-			$.ajax({
-				// 送信先URL
-				url:'https://deboo.mybluemix.net/v1/activity',
-				type: 'POST',
-				data: $form.serialize(),
-				//data:{_id:"f1ccb982723683c8f9e424f12800437c",userId: "f1ccb982723683c8f9e424f12800437c",date:"",fat:0,step:0,weight:0},
-				timeout: 10000,  // 単位はミリ秒
-				success: function(result, textStatus, xhr) {
-					// 入力値を初期化
-					$form[0].reset();
-					$res.val('OK');
-				},
-				error: function(xhr, textStatus, error) {
-					$res.val('NG');
-				}
-			});
-			
 		});
-	});
+		
+		jQuery(function($){
+			$("#inputactv").on('click',function(){
+			
+				// HTMLでの送信をキャンセル
+				//event.preventDefault();
+			
+				alert("入力内容を登録します");
+				
+				var userId = "";//localStorage.getItem("userId");
 	
-	
-	</script>
-	
-	<!-- css from myroom -->
-	<STYLE type="text/css">
-		BODY{color : white ;background-color : #272B30}
-		table{color : black;}
-		.debu-label{display: inline-block;width : 6em;text-align:right;}
-		.debu-txt{display: inline-block;width : 20em; margin-left:0.5em ;color : black;}
-		.debuBox{width:12em; background-color:lightskyblue; border:2px white double; margin-top:1em; margin-right:1em; margin-bottom:1em; margin-left:auto}
-		.debuVal{width:8em; display: inline-block;text-align: right;margin-left:0.5em;}
-	</STYLE>	
+				// 操作対象のフォーム要素を取得
+				var $form = $("#actvform");
+				
+				// 送信ボタンを取得
+				var $res = $form.find("[name=results]");
+				
+				// 送信
+				$.ajax({
+					// 送信先URL
+					url:'https://deboo.mybluemix.net/v1/activity',
+					type: 'POST',
+					data: $form.serialize(),
+					//data:{_id:"f1ccb982723683c8f9e424f12800437c",userId: "f1ccb982723683c8f9e424f12800437c",date:"",fat:0,step:0,weight:0},
+					timeout: 10000,  // 単位はミリ秒
+					success: function(result, textStatus, xhr) {
+						// 入力値を初期化
+						$form[0].reset();
+						$res.val('OK');
+					},
+					error: function(xhr, textStatus, error) {
+						$res.val('NG');
+					}
+				});
+				
+			});
+		});
+		
+		
+		</script>
+		
+		<!-- css from myroom -->
+		<STYLE type="text/css">
+			BODY{color : white ;background-color : #272B30}
+			table{color : black;}
+			.debu-label{display: inline-block;width : 6em;text-align:right;}
+			.debu-txt{display: inline-block;width : 20em; margin-left:0.5em ;color : black;}
+			.debuBox{width:12em; background-color:lightskyblue; border:2px white double; margin-top:1em; margin-right:1em; margin-bottom:1em; margin-left:auto}
+			.debuVal{width:8em; display: inline-block;text-align: right;margin-left:0.5em;}
+		</STYLE>	
 	</head>
 	<body>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarEexample7">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="myroom.html">DevDebu</a>
+				</div>
+			
+				<div class="collapse navbar-collapse" id="navbarEexample7">
+					<ul class="nav navbar-nav">
+						<li><a href="input.html">アクティビティ入力</a></li>
+						<li><a href="user.html">基本情報修正</a></li>
+					</ul>
+					<p class="navbar-text navbar-right">ようこそ <a href="#" class="navbar-link"><span id ="dspName"></span></a> さん。</p>
+				</div>
+			</div>
+		</nav>
 		<form class="form-horizontal" method="POST" id="actvform" name="actvform">
 			<div class="form-group">
 				<label for="bodyweight" class="col-sm-4 control-label">ユーザーＩＤ</label></label>
