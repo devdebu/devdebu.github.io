@@ -33,7 +33,7 @@
 			type:'GET',
 			success:function(user){
 				var myUser = user;
-				$("#userName").val(myUser.name);
+				$("#name").val(myUser.name);
 				$("#mail").val(myUser.mail);
 				$("#birthday").val(myUser.birthday);
 				$("#dspName").text(myUser.name);
@@ -60,7 +60,28 @@
 				success:ajaxSuccess
 			})
 		});
-               
+
+		$(".btn_del").on("click", function(e) {
+		var button = $(this);
+		$("#userId").val(userId);
+		$.ajax({
+			url: 'https://deboo.mybluemix.net/v1/user',
+			type: 'DELTE',
+			data: {userId:userId},
+			timeout: 10000,
+				success:ajaxDelSuccess
+			})
+		});
+		
+		function ajaxDelSuccess(result){
+			if(result.result === "failure"){
+				$("#errorMsg").html("");
+				$("#errorMsg").append(" <div class='alert alert-danger' id='myAlert'></div>");
+				$("#myAlert").append("退会できませんでした。");
+			}else{
+				window.location.href = "//devdebu.github.io/myroom.html";
+			}
+		}			   
 		function ajaxSuccess(result){
 			if(result.result === "failure"){
 				$("#errorMsg").html("");
@@ -157,5 +178,7 @@
 			</div> 
 		</div>
 	</div>
+	<hr>
+	<button type="button" class ="btn btn-danger btn-block btn_del" action = "del" >退会</button>
   </body>
 </html>
