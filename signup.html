@@ -48,6 +48,7 @@
     $(document).ready(function(){
       var errorMsg = $("#errorMsg");
       $(".btn_ajax").on("click", function(e) {
+          errorMsg.html("");
           var button = $(this);
           var form =$("#"+$(button).attr("action"));
           var password = $('#password', form).val();
