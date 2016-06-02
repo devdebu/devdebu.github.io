@@ -33,10 +33,10 @@
 			type:'GET',
 			success:function(user){
 				var myUser = user;
-				$("#userName").text(myUser.name);
-				$("#mail").text(myUser.mail);
-				$("#birthday").text(myUser.birthday);
-				$("#dspName").text(myUser.name);
+				$("#userName").val(myUser.name);
+				$("#mail").val(myUser.mail);
+				$("#birthday").val(myUser.birthday);
+				$("#dspName").val(myUser.name);
 				
 				if(myUser.sex==1){
 					$("#man").attr("checked",true);
