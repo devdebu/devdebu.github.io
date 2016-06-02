@@ -51,6 +51,7 @@
 		$(".btn_ajax").on("click", function(e) {
 		var button = $(this);
 		var form =$("#update");
+		$("#userId").val(userId);
 		$.ajax({
 			url: 'https://deboo.mybluemix.net/v1/user',
 			type: 'PUT',
@@ -119,21 +120,21 @@
 							</div>
 							<div class="input-group margin-bottom-20">
 								<span class="input-group-addon rounded-left glyphicon glyphicon-user"></span>
-								<input type="input" class="form-control rounded-right" placeholder="名前を入力してください" name="userName" id="userName" >
+								<input type="input" class="form-control rounded-right" placeholder="名前を入力してください" name="name" id="name" >
 							</div>
 							<div class="input-group margin-bottom-20">
 								<span class="input-group-addon rounded-left glyphicon glyphicon-star"></span>
 								<div class="form-control rounded-right">
 									<div class="radio-inline">
-										<input type="radio" value="1" name="gender" id="man">
+										<input type="radio" value="1" name="sex" id="man">
 										<label for="man">男性</label>
 									</div>
 									<div class="radio-inline">
-										<input type="radio" value="2" name="gender" id="woman">
+										<input type="radio" value="2" name="sex" id="woman">
 										<label for="woman">女性</label>
 									</div>
 									<div class="radio-inline">
-										<input type="radio" value="3" name="gender" id="other">
+										<input type="radio" value="3" name="sex" id="other">
 										<label for="other">その他</label>
 									</div>
 								</div>
@@ -142,7 +143,7 @@
 								<span class="input-group-addon rounded-left glyphicon glyphicon-heart"></span>
 								<input type="input" class="form-control rounded-right" placeholder="生年月日を入力してください" name="birthday" id="birthday" >
 							</div>
-							
+							<input type="hidden" name="userId" id="userId">
 							<div class="row margin-bottom-70">
 								<div class="col-md-12">
 									<button type="button" class ="btn btn-danger btn-block btn_ajax" action = "update" >UPDATE</button>
