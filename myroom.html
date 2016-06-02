@@ -30,6 +30,7 @@
 		$.ajax({
 			url:'https://deboo.mybluemix.net/v1/debu?userId=' + userId,
 			type:'GET',
+			cache:false,
 			success:function(debu){
 				var myDebu =convNum(debu.debu);
 				$("#myDebu").text(myDebu);
@@ -39,6 +40,7 @@
 		$.ajax({
 			url:'https://deboo.mybluemix.net/v1/user?userId=' + userId,
 			type:'GET',
+			cache:false,
 			success:function(user){
 				var myUser = user;
 				var mySex = convSex(myUser.sex);
@@ -54,6 +56,7 @@
 		$.ajax({
 			url:'https://deboo.mybluemix.net/v1/activity?userId=' + userId,
 			type:'GET',
+			cache:false,
 			success:function(activity){
 				var myActivity = activity
 				var rows = "";
