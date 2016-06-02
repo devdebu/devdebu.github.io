@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>サインアップ</title>
+    <!--
+	<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+   <style>
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    .row.content {height: 450px}
+    
+    .sidenav {
+      padding-top: 20px;
+      background-color: #f1f1f1;
+      height: 100%;
+    }
+    
+    footer {
+      background-color: #555;
+      color: white;
+      padding: 15px;
+    }
+    
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: auto;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+  <script>
+    $(document).ready(function(){
+      var errorMsg = $("#errorMsg");
+      $(".btn_ajax").on("click", function(e) {
+          var button = $(this);
+          var form =$("#"+$(button).attr("action"));
+          var password = $('#password', form).val();
+          var passwordAgain = $('#passwordAgain', form).val();
+          if (password.trim().length > 0 && password === passwordAgain) {
+            $.ajax({
+              url: form.attr('action'),
+              type: form.attr('method'),
+              data: form.serialize(),
+              timeout: 10000,
+              success:ajaxSuccess
+            });
+          } else {
+            errorMsg.append(" <div class='alert alert-danger' id='myAlert'></div>");
+            $("#myAlert", errorMsg).append("<string>Password</string>を正しく入力してください。");
+          }
+      });
+      
+      function ajaxSuccess(result){
+        if(result.result === "failure"){
+          errorMsg.html("");
+          errorMsg.append(" <div class='alert alert-danger' id='myAlert'></div>");
+          $("#myAlert", errorMsg).append("すでに登録されています。");
+        }else{
+          window.location.href = "//devdebu.github.io/index.html";
+        }
+      }
+    });
+  </script>
+  
+   </head>
+    <body>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="#"><span class="glyphicon glyphicon-edit"></span>Sign up</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid text-center ">    
+            <div class="row content">
+                <div class="col-sm-3 sidenav">
+                </div>
+	        <div class="col-sm-6 text-left">
+    	        <h2 class="margin-bottom-30">Sign Up</h2>
+    	        <div id = "errorMsg">
+                </div>
+			    <form action = "https://deboo.mybluemix.net/v1/user" method ="post" id="login">
+    				<div class="login-block">
+    					<div class="input-group margin-bottom-20">
+    						<span class="input-group-addon rounded-left glyphicon glyphicon-user"></span>
+    						<input type="email" class="form-control rounded-right" placeholder="E-mailを入力してください。" name="mail" id="mail" >
+    					</div>
+    					<div class="input-group margin-bottom-20">
+    						<span class="input-group-addon rounded-left glyphicon glyphicon-lock"></span>
+    						<input type="password" class="form-control rounded-right" placeholder="Passwordを入力してください。" name="password" id="password" >
+    					</div>
+    					<div class="input-group margin-bottom-20">
+    						<span class="input-group-addon rounded-left glyphicon glyphicon-lock"></span>
+    						<input type="password" class="form-control rounded-right" placeholder="Passwordを再度入力してください。" name="passwordAgain" id="passwordAgain" >
+    					</div>
+    					<div class="row margin-bottom-70">
+    						<div class="col-md-12">
+    						    <button type="button" class ="btn btn-danger btn-block btn_ajax" action = "login" >Sign Up</button>
+    						</div>
+    					</div>
+    				</div>
+    			</form>
+    		</div>
+			<div class="col-sm-3 sidenav">
+            </div>
+		</div>
+	</div>
+	<footer class="container-fluid text-center">
+        <p></p>
+    </footer>
+	</body>
+</html>
