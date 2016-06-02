@@ -62,24 +62,27 @@
 		});
 
 		$(".btn_del").on("click", function(e) {
+		if(window.confirm('退会処理を続行します')){
 		var button = $(this);
 		$("#userId").val(userId);
 		$.ajax({
 			url: 'https://deboo.mybluemix.net/v1/user',
 			type: 'DELTE',
-			data: {userId:userId},
+			data: {'userId':userId},
 			timeout: 10000,
 				success:ajaxDelSuccess
 			})
+		}else{
+		 alert('退会をキャンセルしました');
+		}
 		});
-		
 		function ajaxDelSuccess(result){
 			if(result.result === "failure"){
 				$("#errorMsg").html("");
 				$("#errorMsg").append(" <div class='alert alert-danger' id='myAlert'></div>");
 				$("#myAlert").append("退会できませんでした。");
 			}else{
-				window.location.href = "//devdebu.github.io/myroom.html";
+				window.location.href = "//devdebu.github.io/signup.html";
 			}
 		}			   
 		function ajaxSuccess(result){
