@@ -12,12 +12,16 @@
 	
 		<script>
 		$(document).ready(function(){
+			initload();
+		}
+		
+		function initload(){
 			// 現在日付を取得
 			var jnow = jQuery.now();
 			var nowdate = new Date(jnow);
 			var yyyymmdd = 		nowdate.getFullYear() 
-							+ 	"/" + ("0" + (nowdate.getMonth()+1)).slice(-2) 
-							+	"/" + ("0" + nowdate.getDate()).slice(-2);
+							+ 	"" + ("0" + (nowdate.getMonth()+1)).slice(-2) 
+							+	"" + ("0" + nowdate.getDate()).slice(-2);
 			
 			// 現在日付を設定
 			var $aform = $('#actvform');
@@ -28,16 +32,13 @@
 			
 			// ページ読み込み時にユーザーＩＤ取得
 			var userId = localStorage.getItem("userId");
-
-			// テストユーザーを固定でセット
-			//var userId = "devdebu@devdebu.com";
+			$aform.find("[name=userId]").val(userId);
 
 			// サンプル値をランダムでセット
 			//$aform.find("[name=weight]").val(jnow%10+50);
 			//$aform.find("[name=fat]").val(jnow%5+19);
 			//$aform.find("[name=step]").val(jnow%30000);
 	
-			$aform.find("[name=userId]").val(userId);
 
 		//});
 		
@@ -60,7 +61,10 @@
 					success: function(result, textStatus, xhr) {
 						// 入力値を初期化
 						$form[0].reset();
-						$("#errorMsg").html("登録しました。");
+						initload();
+						$("#errorMsg").html("");
+						$("#errorMsg").append(" <div class='alert alert-danger' id='myAlert'></div>");
+						$("#myAlert").append("登録しました。");
 					},
 					error: function(xhr, textStatus, error) {
 						$("#errorMsg").html("");
