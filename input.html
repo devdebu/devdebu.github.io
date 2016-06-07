@@ -27,8 +27,8 @@
 			$aform.find("[name=date]").attr("readonly",true);
 			
 			// ページ読み込み時にユーザーＩＤ取得
-			//var userId = localStorage.getItem("userId");
-			var userId = "devdebu@devdebu.com";
+			var userId = localStorage.getItem("userId");
+			//var userId = "devdebu@devdebu.com";
 			$aform.find("[name=userId]").val(userId);
 
 			// サンプル値をランダムでセット
