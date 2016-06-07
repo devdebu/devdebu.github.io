@@ -88,8 +88,13 @@
 				$("#activityTable tbody").html(rows);
 		//グラフ表示
 				if(myActivity.length>0){
-				var data = setArray(activity);
-				google.charts.setOnLoadCallback(drawChart(data));
+				var data = setArray(myActivity);
+						var array =new Array(7);
+						var maxlen = pData.length<7 ?7:pData.length;
+						for (var i = 0; i < maxlen; i++) {
+							array[i] = [convDate(pData[i].date),pData[i].step];
+						}
+				google.charts.setOnLoadCallback(drawChart(array));
 				}
 			}
 		});
@@ -120,14 +125,7 @@
 	function convNum(num){
 		return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 	}
-	function setArray(pData){
-		var array =new Array(7);
-		var maxlen = pData.length<7 ?7:pData.length;
-		for (var i = 0; i < maxlen; i++) {
-			array[i] = [convDate(pData[i].date),pData[i].step];
-		}
-		return array;
-	}
+	//グラフ描画
 	function drawChart(pData) {
 
         // データの作成--------------③
