@@ -67,7 +67,7 @@
 		$("#userId").val(userId);
 		$.ajax({
 			url: 'https://deboo.mybluemix.net/v1/user',
-			type: 'DELTE',
+			type: 'DELETE',
 			data: {'userId':userId},
 			timeout: 10000,
 				success:ajaxDelSuccess
