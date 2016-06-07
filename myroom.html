@@ -13,6 +13,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <!-- BootstrapのJS読み込み -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>	
+	<!-- Google ChartのJS読み込み -->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<STYLE type="text/css">
 	BODY{color : white ;background-color : #272B30}
 	table{color : black;}
@@ -24,6 +26,12 @@
   </head>
   <body>
 	<script>
+	        // グラフを描画するためのパッケージ(corechart)の呼び出し--------------①
+        google.charts.load('current', {'packages':['corechart']});
+
+        // コールバック--------------②
+	
+	
 	$(document).ready(function(){
 	var userId = localStorage.getItem("userId");
 	//Debu取得
@@ -75,10 +83,18 @@
 					rows += myActivity[i].step + "歩";
 					rows += "</td>";
 					rows += "</tr>";
+					
 				}
 				$("#activityTable tbody").html(rows);
+		//グラフ表示
+				if(myActivity.length>0){
+				var data = setArray(activity);
+				google.charts.setOnLoadCallback(drawChart(data));
+				}
 			}
 		});
+		
+
 	});
 	//性別表示変換
 	function convSex(sex){
@@ -104,6 +120,30 @@
 	function convNum(num){
 		return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 	}
+	function setArray(pData){
+		var array =new Array(7);
+		var maxlen = pData.length<7 ?7:pData.length;
+		for (var i = 0; i < maxlen; i++) {
+			array[i] = [convDate(pData[i].date),pData[i].step];
+		}
+		return array;
+	}
+	function drawChart(pData) {
+
+        // データの作成--------------③
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', '日付');
+        data.addColumn('number', '歩数');
+        data.addRows(pData.reverse());
+
+        // グラフの描画--------------④
+        var options = {'title':'最近のアクティビティ（歩数）',
+          'width':400,
+          'height':300};
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+      }
 	</script>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -154,6 +194,8 @@
 						</tr></thead>
 						<tbody></tbody>
 					</table>
+					<!--  グラフの描画エリア -->
+  <div id="chart_div" ></div>
 				</div>
 			</div> 
 		</div>
