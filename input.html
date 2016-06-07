@@ -27,10 +27,10 @@
 			$aform.find("[name=date]").attr("readonly",true);
 			
 			// ページ読み込み時にユーザーＩＤ取得
-			var userId = localStorage.getItem("userId");
+			//var userId = localStorage.getItem("userId");
 
 			// テストユーザーを固定でセット
-			//var userId = "devdebu@devdebu.com";
+			var userId = "devdebu@devdebu.com";
 
 			// サンプル値をランダムでセット
 			//$aform.find("[name=weight]").val(jnow%10+50);
@@ -39,15 +39,14 @@
 	
 			$aform.find("[name=userId]").val(userId);
 
-		});
+		//});
 		
-		jQuery(function($){
-			$("#inputactv").on('click',function(){
+		//jQuery(function($){
+			$(".btn_ajax").on("click", function(e) {
+				var button = $(this);
 			
 				alert("入力内容を登録します");
-				
-				var userId = "";//localStorage.getItem("userId");
-	
+		
 				// 操作対象のフォーム要素を取得
 				var $form = $("#actvform");
 				
@@ -61,7 +60,7 @@
 					success: function(result, textStatus, xhr) {
 						// 入力値を初期化
 						$form[0].reset();
-						$("#errorMsg").html("");
+						$("#errorMsg").html("登録しました。");
 					},
 					error: function(xhr, textStatus, error) {
 						$("#errorMsg").html("");
@@ -131,12 +130,12 @@
 								<span class="input-group-addon rounded-left glyphicon glyphicon-fire"></span>
 								<input type="number" class="form-control rounded-right" id="step" placeholder="歩数を入力してください。" name="step">
 							</div>
+							<input  type="hidden" name="userId" id="userId">
 							<div class="row margin-bottom-70">
 								<div class="col-md-12">
-									<button type="button" class ="btn btn-danger btn-block btn_ajax" action = "update" >INPUT</button>
+									<button type="button" class ="btn btn-danger btn-block btn_ajax" action="actvform">INPUT</button>
 								</div>
 							</div>
-							<input  type="hidden" class="form-control rounded-right" name="userId" id="userId">
 						</div>
 						</form>
 						<div id = "errorMsg"></div>
