@@ -160,7 +160,7 @@
         var options = {'title':'最近のアクティビティ（体重）',
           'width':400,
           'height':300,
-          'colors': 'red'};
+          'colors':['red']};
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_divWeight'));
         chart.draw(data, options);
@@ -178,7 +178,7 @@
         var options = {'title':'最近のアクティビティ（体脂肪率）',
           'width':400,
           'height':300,
-          'colors': 'black'
+          'colors':['black']
            };
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_divFat'));
