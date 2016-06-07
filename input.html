@@ -27,7 +27,8 @@
 			$aform.find("[name=date]").attr("readonly",true);
 			
 			// ページ読み込み時にユーザーＩＤ取得
-			var userId = localStorage.getItem("userId");
+			//var userId = localStorage.getItem("userId");
+			var userId = "devdebu@devdebu.com";
 			$aform.find("[name=userId]").val(userId);
 
 			// サンプル値をランダムでセット
@@ -57,7 +58,20 @@
 					success: function(result, textStatus, xhr) {
 						// 入力値を初期化
 						$form[0].reset();
-						initload();
+
+						// 現在日付を取得
+						var jnow = jQuery.now();
+						var nowdate = new Date(jnow);
+						var yyyymmdd = 		nowdate.getFullYear() 
+										+ 	"" + ("0" + (nowdate.getMonth()+1)).slice(-2) 
+										+	"" + ("0" + nowdate.getDate()).slice(-2);
+						// 現在日付を設定
+						var $aform = $('#actvform');
+						$aform.find("[name=date]").val(yyyymmdd);
+						
+						// 編集不可の設定
+						$aform.find("[name=date]").attr("readonly",true);
+
 						$("#errorMsg").html("");
 						$("#errorMsg").append(" <div class='alert alert-danger' id='myAlert'></div>");
 						$("#myAlert").append("登録しました。");
