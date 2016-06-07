@@ -88,10 +88,10 @@
 				$("#activityTable tbody").html(rows);
 		//グラフ表示
 				if(myActivity.length>0){
-						var array =new Array(7);
-						var maxlen = myActivity.length<7 ?7:myActivity.length;
+						var maxlen = myActivity.length>7 ?7:myActivity.length;
+						var array =new Array(maxlen);
 						for (var i = 0; i < maxlen; i++) {
-							array[i] = [convDate(myActivity[i].date),myActivity[i].step];
+							array[i] = [convDate(myActivity[i].date),parseInt(myActivity[i].step)];
 						}
 				google.charts.setOnLoadCallback(drawChart(array));
 				}
