@@ -28,13 +28,17 @@
 			
 			// ページ読み込み時にユーザーＩＤ取得
 			var userId = localStorage.getItem("userId");
-			$aform.find("[name=userId]").val(userId);
-			
+
+			// テストユーザーを固定でセット
+			//var userId = "devdebu@devdebu.com";
+
 			// サンプル値をランダムでセット
-			$aform.find("[name=weight]").val(jnow%10+50);
-			$aform.find("[name=fat]").val(jnow%5+19);
-			$aform.find("[name=step]").val(jnow%30000);
+			//$aform.find("[name=weight]").val(jnow%10+50);
+			//$aform.find("[name=fat]").val(jnow%5+19);
+			//$aform.find("[name=step]").val(jnow%30000);
 	
+			$aform.find("[name=userId]").val(userId);
+
 		});
 		
 		jQuery(function($){
@@ -112,7 +116,7 @@
 						<form method="POST" id="actvform" name="actvform">
 						<div class="login-block">
 							<div class="input-group  margin-bottom-20">
-								<span class="input-group-addon rounded-left glyphicon glyphicon-envelope"></span>
+								<span class="input-group-addon rounded-left glyphicon glyphicon-calendar"></span>
 								<input type="text" class="form-control rounded-right" id="date" name="date">
 							</div>
 							<div class="input-group  margin-bottom-20">
@@ -127,7 +131,10 @@
 								<span class="input-group-addon rounded-left glyphicon glyphicon-fire"></span>
 								<input type="number" class="form-control rounded-right" id="step" placeholder="歩数を入力してください。" name="step">
 							</div>
-							<input type="hidden" name="userId" id="userId">
+							<div class="input-group  margin-bottom-20">
+								<span class="input-group-addon rounded-left glyphicon glyphicon-user"></span>
+								<input type="text" class="form-control rounded-right" name="userId" id="userId">
+							</div>
 							<div class="row margin-bottom-70">
 								<div class="col-md-12">
 									<button type="button" class ="btn btn-danger btn-block btn_ajax" action = "update" >INPUT</button>
