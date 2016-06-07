@@ -24,7 +24,7 @@
 			$aform.find("[name=date]").val(yyyymmdd);
 			
 			// 編集不可の設定
-			//$aform.find("[name=date]").attr("readonly",true);
+			$aform.find("[name=date]").attr("readonly",true);
 			
 			// ページ読み込み時にユーザーＩＤ取得
 			var userId = localStorage.getItem("userId");
