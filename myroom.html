@@ -89,11 +89,17 @@
 		//グラフ表示
 				if(myActivity.length>0){
 						var maxlen = myActivity.length>7 ?7:myActivity.length;
-						var array =new Array(maxlen);
+						var array1 =new Array(maxlen);
+						var array2 =new Array(maxlen);
+						var array3 =new Array(maxlen);
 						for (var i = 0; i < maxlen; i++) {
-							array[i] = [convDate(myActivity[i].date),parseInt(myActivity[i].step)];
+							array1[i] = [convDate(myActivity[i].date),parseInt(myActivity[i].weight)];
+							array2[i] = [convDate(myActivity[i].date),parseInt(myActivity[i].fat)];
+							array3[i] = [convDate(myActivity[i].date),parseInt(myActivity[i].step)];
 						}
-				google.charts.setOnLoadCallback(drawChart(array));
+				google.charts.setOnLoadCallback(drawChartWeight(array1));
+				google.charts.setOnLoadCallback(drawChartFat(array2));
+				google.charts.setOnLoadCallback(drawChartStep(array3));
 				}
 			}
 		});
@@ -124,23 +130,61 @@
 	function convNum(num){
 		return String(num).replace( /(\d)(?=(\d\d\d)+(?!\d))/g, '$1,');
 	}
-	//グラフ描画
-	function drawChart(pData) {
+	//歩数描画
+	function drawChartStep(pData) {
 
-        // データの作成--------------③
+        // データの作成
         var data = new google.visualization.DataTable();
         data.addColumn('string', '日付');
         data.addColumn('number', '歩数');
-        data.addRows(pData.reverse());
+        data.addRows(pData);
 
-        // グラフの描画--------------④
+        // グラフの描画
         var options = {'title':'最近のアクティビティ（歩数）',
           'width':400,
           'height':300};
 
-        var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+        var chart = new google.visualization.LineChart(document.getElementById('chart_divStep'));
         chart.draw(data, options);
       }
+	//体重率描画
+	function drawChartWeight(pData) {
+
+        // データの作成
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', '日付');
+        data.addColumn('number', '体重');
+        data.addRows(pData);
+
+        // グラフの描画
+        var options = {'title':'最近のアクティビティ（体重）',
+          'width':400,
+          'height':300,
+          'colors': 'red'};
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_divWeight'));
+        chart.draw(data, options);
+      }
+	//体脂肪率描画
+	function drawChartFat(pData) {
+
+        // データの作成
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', '日付');
+        data.addColumn('number', '体脂肪率');
+        data.addRows(pData);
+
+        // グラフの描画
+        var options = {'title':'最近のアクティビティ（体脂肪率）',
+          'width':400,
+          'height':300,
+          'colors': 'black'
+           };
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_divFat'));
+        chart.draw(data, options);
+      }
+
 	</script>
 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
@@ -192,7 +236,9 @@
 						<tbody></tbody>
 					</table>
 					<!--  グラフの描画エリア -->
-  <div id="chart_div" ></div>
+  <div id="chart_divWeight" ></div>
+  <div id="chart_divFat" ></div>
+  <div id="chart_divStep" ></div>
 				</div>
 			</div> 
 		</div>
