@@ -97,9 +97,9 @@
 							array2[i] = [convDate(myActivity[i].date),parseInt(myActivity[i].fat)];
 							array3[i] = [convDate(myActivity[i].date),parseInt(myActivity[i].step)];
 						}
-				google.charts.setOnLoadCallback(drawChartWeight(array1));
-				google.charts.setOnLoadCallback(drawChartFat(array2));
-				google.charts.setOnLoadCallback(drawChartStep(array3));
+				google.charts.setOnLoadCallback(drawChartWeight(array1.reverse()));
+				google.charts.setOnLoadCallback(drawChartFat(array2.reverse()));
+				google.charts.setOnLoadCallback(drawChartStep(array3.reverse()));
 				}
 			}
 		});
@@ -236,9 +236,9 @@
 						<tbody></tbody>
 					</table>
 					<!--  グラフの描画エリア -->
-  <div class ="col-xs-12 col-md-6" id="chart_divWeight"></div>
-  <div class ="col-xs-12 col-md-6" id="chart_divFat"></div>
-  <div class ="col-xs-12 col-md-6" id="chart_divStep"></div>
+  <div class ="col-xs-12" id="chart_divWeight"></div>
+  <div class ="col-xs-12" id="chart_divFat"></div>
+  <div class ="col-xs-12" id="chart_divStep"></div>
 				</div>
 			</div> 
 		</div>
