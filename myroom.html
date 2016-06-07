@@ -141,7 +141,7 @@
 
         // グラフの描画
         var options = {'title':'最近のアクティビティ（歩数）',
-          'width':400,
+          'width':'100%',
           'height':300};
 
         var chart = new google.visualization.LineChart(document.getElementById('chart_divStep'));
@@ -158,7 +158,7 @@
 
         // グラフの描画
         var options = {'title':'最近のアクティビティ（体重）',
-          'width':400,
+          'width':'100%',
           'height':300,
           'colors':['red']};
 
@@ -176,7 +176,7 @@
 
         // グラフの描画
         var options = {'title':'最近のアクティビティ（体脂肪率）',
-          'width':400,
+          'width':'100%',
           'height':300,
           'colors':['black']
            };
@@ -236,9 +236,9 @@
 						<tbody></tbody>
 					</table>
 					<!--  グラフの描画エリア -->
-  <div id="chart_divWeight" ></div>
-  <div id="chart_divFat" ></div>
-  <div id="chart_divStep" ></div>
+  <div class ="col-xs-12 col-md-6" id="chart_divWeight"></div>
+  <div class ="col-xs-12 col-md-6" id="chart_divFat"></div>
+  <div class ="col-xs-12 col-md-6" id="chart_divStep"></div>
 				</div>
 			</div> 
 		</div>
