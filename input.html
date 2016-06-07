@@ -5,7 +5,7 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>アクティビティ入力</title>
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
@@ -40,9 +40,6 @@
 		jQuery(function($){
 			$("#inputactv").on('click',function(){
 			
-				// HTMLでの送信をキャンセル
-				//event.preventDefault();
-			
 				alert("入力内容を登録します");
 				
 				var userId = "";//localStorage.getItem("userId");
@@ -50,24 +47,22 @@
 				// 操作対象のフォーム要素を取得
 				var $form = $("#actvform");
 				
-				// 送信ボタンを取得
-				var $res = $form.find("[name=results]");
-				
 				// 送信
 				$.ajax({
 					// 送信先URL
 					url:'https://deboo.mybluemix.net/v1/activity',
 					type: 'POST',
 					data: $form.serialize(),
-					//data:{_id:"f1ccb982723683c8f9e424f12800437c",userId: "f1ccb982723683c8f9e424f12800437c",date:"",fat:0,step:0,weight:0},
-					timeout: 10000,  // 単位はミリ秒
+					timeout: 10000,  // milliSecond
 					success: function(result, textStatus, xhr) {
 						// 入力値を初期化
 						$form[0].reset();
-						$res.val('OK');
+						$("#errorMsg").html("");
 					},
 					error: function(xhr, textStatus, error) {
-						$res.val('NG');
+						$("#errorMsg").html("");
+						$("#errorMsg").append(" <div class='alert alert-danger' id='myAlert'></div>");
+						$("#myAlert").append("登録に失敗しました。");
 					}
 				});
 				
@@ -111,50 +106,34 @@
 			<div class="row-fluid">
 				<div class="col-xs-12 col-md-6 panel-primary">
 					<div class="panel-heading">
-						<div class="panel-title">基本情報</div>
+						<div class="panel-title">アクティビティ</div>
 					</div>
 					<div class="panel-body panel">
-						<form class="form-horizontal" method="POST" id="actvform" name="actvform">
-							<div class="form-group">
-								<label for="bodyweight" class="col-sm-4 control-label">ユーザーＩＤ</label></label>
-								<div class="col-sm-offset-4 col-sm-6">
-									<input type="text" class="form-control" id="userId" name="userId" readonly="readonly">
+						<form method="POST" id="actvform" name="actvform">
+						<div class="login-block">
+							<div class="input-group  margin-bottom-20">
+								<span class="input-group-addon rounded-left glyphicon glyphicon-envelope"></span>
+								<input type="text" class="form-control rounded-right" id="date" name="date">
+							</div>
+							<div class="input-group  margin-bottom-20">
+								<span class="input-group-addon rounded-left glyphicon glyphicon-scale"></span>
+								<input type="number" class="form-control rounded-right" id="weight" placeholder="体重(kg)を入力してください。" name="weight">
+							</div>
+							<div class="input-group  margin-bottom-20">
+								<span class="input-group-addon rounded-left glyphicon glyphicon-dashboard"></span>
+								<input type="number" class="form-control rounded-right" id="fat" placeholder="体脂肪率(%)を入力してください。" name="fat">
+							</div>
+							<div class="input-group  margin-bottom-20">
+								<span class="input-group-addon rounded-left glyphicon glyphicon-fire"></span>
+								<input type="number" class="form-control rounded-right" id="step" placeholder="歩数を入力してください。" name="step">
+							</div>
+							<input type="hidden" name="userId" id="userId">
+							<div class="row margin-bottom-70">
+								<div class="col-md-12">
+									<button type="button" class ="btn btn-danger btn-block btn_ajax" action = "update" >INPUT</button>
 								</div>
 							</div>
-							<div class="form-group">
-								<label for="actvDate" class="col-sm-4 control-label">日付</label>
-								<div class="col-sm-6">
-									<input type="text" class="form-control" id="date" name="date">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="bodyweight" class="col-sm-4 control-label">体重</label>
-								<div class="col-sm-6">
-									<input type="number" class="form-control" id="weight" placeholder="Amount" name="weight">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="fatrate" class="col-sm-4 control-label">体脂肪率</label>
-								<div class="col-sm-6">
-									<input type="number" class="form-control" id="fat" placeholder="Amount" name="fat">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="steps" class="col-sm-4 control-label">歩数</label>
-								<div class="col-sm-6">
-									<input type="number" class="form-control" id="step" placeholder="Amount" name="step">
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-4 col-sm-6">
-								<button type="button" class="btn btn-default" id="inputactv" name="inputactv">入力</button>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-4 col-sm-6">
-								<input type="text" class="form-control" id="results" name="results" readonly="readonly">
-								</div>
-							</div>
+						</div>
 						</form>
 						<div id = "errorMsg"></div>
 					</div>
